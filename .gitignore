@@ -2,9 +2,13 @@ node_modules/
 out/
 dist/
 *.mp3
-*.mp4
 *.wav
 *.bin
 whisper.cpp/
 .env
 .DS_Store
+
+# Ignore rendered output but keep examples
+out/*.mp4
+*.mp3
+*.wav
