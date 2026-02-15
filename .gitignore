@@ -1,0 +1,10 @@
+node_modules/
+out/
+dist/
+*.mp3
+*.mp4
+*.wav
+*.bin
+whisper.cpp/
+.env
+.DS_Store
