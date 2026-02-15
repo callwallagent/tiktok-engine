@@ -1,7 +1,7 @@
 {
   "name": "tiktok-engine",
   "version": "1.0.0",
-  "description": "Programmatic TikTok/Reels video engine powered by Remotion — multi-voice TTS, auto-captions, iMessage screens, notification UIs, and AI video backgrounds",
+  "description": "OpenClaw skill — Programmatic TikTok/Reels video engine powered by Remotion. Multi-voice TTS, auto-captions, iMessage screens, notification UIs, AI video backgrounds.",
   "repository": {
     "type": "git",
     "url": "https://github.com/callwallagent/tiktok-engine"

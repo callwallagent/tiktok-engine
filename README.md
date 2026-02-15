@@ -289,6 +289,7 @@ tiktok-engine/
 
 ## 🙏 Credits
 
+- [OpenClaw](https://openclaw.ai) — AI agent platform (this is an OpenClaw plugin/skill)
 - Built with [Remotion](https://remotion.dev) — React for video
 - Example brand: [CallWall](https://callwall.ai) — AI phone agent for service businesses
 - TTS: [ElevenLabs](https://elevenlabs.io)
