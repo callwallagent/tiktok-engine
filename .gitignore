@@ -1,14 +1,19 @@
 node_modules/
 out/
 dist/
-*.mp3
-*.wav
 *.bin
 whisper.cpp/
 .env
 .DS_Store
+examples/
 
-# Ignore rendered output but keep examples
-out/*.mp4
-*.mp3
-*.wav
+# Media assets (not included in public repo)
+public/*.jpg
+public/*.png
+public/*.mp3
+public/voiceover/**
+public/captions/**
+public/veo-clips/**
+
+# Keep the public README
+!public/README.md

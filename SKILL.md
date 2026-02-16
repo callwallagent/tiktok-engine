@@ -46,14 +46,25 @@ The agent workflow is conversational. The user describes a vertical/story and th
 
 Final output: `out/video.mp4` — 1080×1920, 30fps, ready for TikTok/Reels/Shorts.
 
+## Key Features
+
+- **Audio ducking** — background music auto-ducks to 30% when voiceover plays
+- **Ken Burns zoom** — static image backgrounds get smooth scale+translate animation
+- **Payoff crossfade** — iMessage slides can crossfade to a payoff image/video at `payoffAtFrame`
+- **audioDelayFrames** — delay first scene audio for dramatic pauses (set on Composition defaultProps)
+- **CloserSlide** — animated mascot + brand logo with spring physics
+- **Brand name fix** — run `python3 scripts/fix-captions.py` to fix Whisper misspellings of brand names
+- **Ship script** — `bash scripts/ship.sh <CompositionId>` renders + re-encodes in one step
+- **Multiple verticals** — Salon11Labs and VC11Labs compositions show different story templates
+
 ## Scene Types
 
 | Type | Description |
 |------|-------------|
-| `scene` | Full-bleed image or video background with optional text overlay + Ken Burns |
-| `imessage` | Pixel-perfect iMessage bubbles — programmatic text, zero AI garbling |
-| `notifications` | iOS-style notification cards with slide-in animations |
-| `closer` | Animated logo/mascot reveal on white background |
+| `scene` | Full-bleed image or video background with optional text overlay + Ken Burns zoom |
+| `imessage` | Pixel-perfect iMessage bubbles — programmatic text, zero AI garbling. Supports `payoffImage`/`payoffVideo` crossfade |
+| `notifications` | iOS-style notification cards with blurred background, colored icon badges |
+| `closer` | Animated logo/mascot reveal with spring physics |
 
 ## Data File Format
 

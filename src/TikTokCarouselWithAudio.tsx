@@ -14,6 +14,7 @@ interface Props {
   sceneDurations: number[]; // in frames
   bgMusic?: string;
   bgMusicVolume?: number;
+  audioDelayFrames?: number;
 }
 
 const SlideRenderer: React.FC<{ slide: SlideData }> = ({ slide }) => {
@@ -58,6 +59,34 @@ const SlideWithTransition: React.FC<{ children: React.ReactNode }> = ({
   return <AbsoluteFill style={{ opacity }}>{children}</AbsoluteFill>;
 };
 
+const BgMusicWithDucking: React.FC<{
+  bgMusic: string;
+  bgMusicVolume: number;
+  sceneOffsets: number[];
+  sceneDurations: number[];
+  audioFiles: string[];
+}> = ({ bgMusic, bgMusicVolume, sceneOffsets, sceneDurations, audioFiles }) => {
+  const frame = useCurrentFrame();
+
+  // Check if any voiceover is playing at current frame
+  let isVoicePlaying = false;
+  for (let i = 0; i < audioFiles.length; i++) {
+    if (!audioFiles[i]) continue;
+    const start = sceneOffsets[i];
+    const end = start + sceneDurations[i];
+    if (frame >= start && frame < end) {
+      isVoicePlaying = true;
+      break;
+    }
+  }
+
+  // Duck: when voice plays, drop to 30% of target volume
+  // Smooth transition over 8 frames
+  const duckTarget = isVoicePlaying ? bgMusicVolume * 0.3 : bgMusicVolume;
+
+  return <Audio src={staticFile(bgMusic)} volume={duckTarget} loop />;
+};
+
 export const TikTokCarouselWithAudio: React.FC<Props> = ({
   slides,
   audioFiles,
@@ -65,6 +94,7 @@ export const TikTokCarouselWithAudio: React.FC<Props> = ({
   sceneDurations,
   bgMusic,
   bgMusicVolume = 0.12,
+  audioDelayFrames = 0,
 }) => {
   // Calculate offsets for each scene
   const sceneOffsets: number[] = [];
@@ -100,15 +130,21 @@ export const TikTokCarouselWithAudio: React.FC<Props> = ({
       {/* Audio per scene */}
       {audioFiles.map((file, i) =>
         file ? (
-          <Sequence key={`audio-${i}`} from={sceneOffsets[i]}>
+          <Sequence key={`audio-${i}`} from={sceneOffsets[i] + (i === 0 ? audioDelayFrames : 0)}>
             <Audio src={staticFile(file)} />
           </Sequence>
         ) : null
       )}
 
-      {/* Background music */}
+      {/* Background music with ducking */}
       {bgMusic && (
-        <Audio src={staticFile(bgMusic)} volume={bgMusicVolume} loop />
+        <BgMusicWithDucking
+          bgMusic={bgMusic}
+          bgMusicVolume={bgMusicVolume}
+          sceneOffsets={sceneOffsets}
+          sceneDurations={sceneDurations}
+          audioFiles={audioFiles}
+        />
       )}
 
       {/* Caption overlay */}

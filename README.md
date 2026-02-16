@@ -14,7 +14,7 @@ Built by [CallWall](https://callwall.ai) for founder content that actually conve
 
 ## 🎥 What It Does
 
-The included example tells the story of a **hair salon owner drowning in missed calls** — until AI starts handling her bookings. The video flows through:
+Two example verticals are included — a **hair salon** and a **VC firm** — both telling the story of businesses drowning in missed calls. The salon example tells the story of a **hair salon owner drowning in missed calls** — until AI starts handling her bookings. The video flows through:
 
 1. **Hook** — AI-generated video clip (Veo) with voiceover
 2. **iMessage conversation** — programmatic chat bubbles with exact text (no AI garbling)
@@ -32,12 +32,18 @@ Every element is rendered programmatically. No screenshots, no screen recordings
 
 - **🎙️ Multi-voice ElevenLabs TTS** — Different voices for narrator, client, stylist
 - **📝 Whisper auto-captions** — Word-level timestamps with real-time highlighting (green word tracking)
+- **🔇 Audio ducking** — Background music automatically ducks to 30% when voiceover plays
 - **💬 Programmatic iMessage screens** — Pixel-perfect chat bubbles, animated entrance
-- **🔔 iOS notification screens** — Blurred background, staggered card animations
-- **🎬 Veo/AI video backgrounds** — Drop in AI-generated clips as scene backgrounds
-- **🎵 Background music** — Looping audio track with configurable volume
-- **🎨 Ken Burns effects** — Smooth zoom/pan on static images
+- **🎬 Payoff video/image crossfade** — iMessage slides can crossfade to a payoff image or video at a configurable frame
+- **🔔 iOS notification screens** — Blurred background, colored icon badges, staggered card animations
+- **🎬 Veo/AI video backgrounds** — Generate image-to-video clips via Google Veo API
+- **🎵 Background music** — Looping audio track with configurable volume + automatic ducking
+- **🎨 Ken Burns zoom** — Smooth scale + translate on static image backgrounds
 - **⚡ Crossfade transitions** — 8-frame opacity transitions between scenes
+- **🎭 CloserSlide** — Animated mascot + brand logo with spring physics
+- **⏱️ audioDelayFrames** — Delay first scene's audio for dramatic pauses (e.g., 1s silence before VO starts)
+- **🔤 Brand name post-processing** — `scripts/fix-captions.py` auto-corrects Whisper's brand misspellings
+- **📂 Multiple verticals** — Salon + VC examples show how to create different stories from the same engine
 - **📐 1080×1920 native** — Vertical-first, TikTok/Reels/Shorts ready
 
 ---
@@ -245,10 +251,13 @@ tiktok-engine/
 │   │   ├── CloserSlide.tsx           # Brand closer with animations
 │   │   └── CaptionOverlay.tsx        # Word-level caption rendering
 │   └── data/
-│       └── salon-11labs.ts           # Example: salon video data
+│       ├── salon-11labs.ts           # Example: salon vertical
+│       └── vc-11labs.ts              # Example: VC vertical
 ├── scripts/
 │   ├── generate-voiceover-11labs.sh  # ElevenLabs TTS generation
-│   └── transcribe-11labs.sh          # Whisper transcription
+│   ├── transcribe-11labs.sh          # Whisper transcription
+│   ├── fix-captions.py              # Brand name post-processing
+│   └── ship.sh                      # Render + re-encode one-liner
 ├── public/                           # Media assets (not in git)
 │   ├── voiceover/                    # Generated MP3s
 │   ├── captions/                     # Generated caption JSONs

@@ -52,16 +52,29 @@ export const TextOverlaySlide: React.FC<Props> = ({
         </div>
       )}
 
-      {/* Background image (fallback if no video) */}
-      {bgImage && !bgVideo && (
-        <div className="absolute inset-0">
-          <Img
-            src={staticFile(bgImage)}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/40" />
-        </div>
-      )}
+      {/* Background image with Ken Burns zoom */}
+      {bgImage && !bgVideo && (() => {
+        const scale = interpolate(frame, [0, 200], [1.0, 1.15], {
+          extrapolateRight: "clamp",
+        });
+        const translateY = interpolate(frame, [0, 200], [0, -20], {
+          extrapolateRight: "clamp",
+        });
+        return (
+          <div className="absolute inset-0" style={{ overflow: "hidden" }}>
+            <Img
+              src={staticFile(bgImage)}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                transform: `scale(${scale}) translateY(${translateY}px)`,
+              }}
+            />
+            <div className="absolute inset-0 bg-black/40" />
+          </div>
+        );
+      })()}
 
       {/* Top text */}
       {topText && (
